@@ -15,7 +15,9 @@ export const Select = ({ label, value, options, onChange }: Props) => {
       <label htmlFor="select">{label}</label>
       <select id="select" value={value} onChange={onChange}>
         {options.map((option) => (
-          <option value={option.value}>{option.label}</option>
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
         ))}
       </select>
     </div>
