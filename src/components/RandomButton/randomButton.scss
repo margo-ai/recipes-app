@@ -1,0 +1,29 @@
+@use "../../styles/mixins.scss" as mixins;
+
+.random-button {
+  margin-bottom: 34px;
+
+  &__title {
+    font-size: 16px;
+    line-height: 24px;
+    color: #000;
+
+    margin-bottom: 24px;
+
+    @include mixins.disabled;
+  }
+
+  &__button {
+    color: #000;
+    width: 120px;
+    height: 32px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 22px;
+
+    cursor: pointer;
+    @include mixins.disabled;
+  }
+}

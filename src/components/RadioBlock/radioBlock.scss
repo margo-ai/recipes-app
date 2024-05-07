@@ -1,0 +1,18 @@
+.radio-block {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  margin-bottom: 17.33px;
+
+  &__title {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    text-align: end;
+  }
+
+  &__inputs {
+    display: flex;
+    margin-left: 12px;
+  }
+}

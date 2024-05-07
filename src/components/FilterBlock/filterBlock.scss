@@ -1,0 +1,22 @@
+.filter {
+  width: 465px;
+  background-color: #fff;
+
+  margin-right: 12px;
+  padding: 24px;
+}
+
+.info {
+  padding: 24px;
+  margin-bottom: 48px;
+
+  &__image {
+    height: 160px;
+    margin-bottom: 24px;
+  }
+
+  &__text {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}

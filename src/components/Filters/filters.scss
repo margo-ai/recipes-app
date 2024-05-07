@@ -1,0 +1,18 @@
+@use "../../styles/mixins.scss" as mixins;
+
+.reset-button {
+  color: #1890ff;
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  font-size: 14px;
+  line-height: 22px;
+
+  margin-bottom: 48px;
+
+  &.disabled {
+    @include mixins.disabled;
+  }
+}

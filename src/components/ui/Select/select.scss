@@ -1,0 +1,26 @@
+.select {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  margin-bottom: 17.33px;
+
+  label {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+
+  select {
+    width: 285px;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 8px 16px;
+    margin-left: 12px;
+
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+
+    cursor: pointer;
+  }
+}

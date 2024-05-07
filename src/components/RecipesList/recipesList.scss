@@ -1,0 +1,122 @@
+.recipes {
+  width: 1405px;
+
+  margin-right: 14px;
+
+  &__count {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+    background-color: #fff;
+
+    vertical-align: baseline;
+    padding: 16px 24px;
+    margin-bottom: 12px;
+
+    span {
+      font-size: 14px;
+      line-height: 22px;
+      font-weight: 400;
+      opacity: 45%;
+
+      margin-left: 12px;
+
+      vertical-align: text-top;
+    }
+  }
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px 12px;
+}
+
+.item {
+  background-color: #fff;
+  display: flex;
+
+  &__title {
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 500;
+
+    padding: 22px 24px;
+  }
+
+  &__image {
+    height: 294px;
+  }
+  &__right {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  &__description {
+    font-size: 10px;
+    line-height: normal;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.45);
+
+    margin-bottom: 8px;
+  }
+
+  &__cuisine {
+    font-size: 12px;
+    line-height: 24px;
+
+    margin-bottom: 8px;
+  }
+
+  &__meal-type {
+    font-size: 12px;
+    line-height: 24px;
+  }
+}
+
+.time {
+  display: flex;
+  margin-bottom: 8px;
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 6px;
+  }
+  &__text {
+    font-size: 12px;
+    line-height: 24px;
+  }
+}
+
+.difficulty {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 8px;
+
+  &__text {
+    font-size: 12px;
+    line-height: 24px;
+
+    margin-right: 6px;
+  }
+
+  &__stars {
+    display: flex;
+    gap: 2px;
+  }
+  &__star {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

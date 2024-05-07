@@ -1,0 +1,34 @@
+@use "../../../styles/mixins.scss" as mixins;
+
+.radio-button {
+  &:not(:last-child) > span {
+    border-right: none;
+  }
+  &:last-child > span {
+    @include mixins.disabled;
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__input {
+    display: none;
+
+    &:checked + span {
+      color: #fff;
+      background-color: #1890ff;
+      border: none;
+    }
+  }
+
+  &__custom {
+    font-size: 14px;
+    line-height: 24px;
+    width: 72px;
+    height: 40px;
+    border: 1px solid #d9d9d9;
+    cursor: pointer;
+    display: inline-block;
+  }
+}
