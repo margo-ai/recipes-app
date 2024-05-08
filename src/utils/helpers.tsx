@@ -2,7 +2,8 @@ import React from "react";
 
 import arrowLeft from "../assets/arrow-left.svg";
 import arrowRight from "../assets/arrow-right.svg";
-import { TPaginationItems } from "./types";
+
+type TPaginationItems = "page" | "prev" | "next" | "jump-prev" | "jump-next";
 
 export const renderPaginationItems = (page: number, type: TPaginationItems) => {
   switch (type) {

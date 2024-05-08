@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import "./recipesList.scss";
 
-import { renderPaginationItems } from "src/helpers/renderPaginationItems";
+import { renderPaginationItems } from "src/utils/helpers";
 
 import { RecipeItem } from "../RecipeItem";
 
-import { TRecipe } from "src/types/types";
+import { Recipe } from "../../types";
 
 export const RecipesList = () => {
   const [total, setTotal] = useState<number>(0);
-  const [recipes, setRecipes] = useState<TRecipe[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(6);
 

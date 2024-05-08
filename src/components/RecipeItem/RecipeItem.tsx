@@ -6,10 +6,10 @@ import filledStar from "../../assets/filled-star-icon.svg";
 import notFilledStar from "../../assets/star-icon.svg";
 
 import "./recipeItem.scss";
-import { TRecipe } from "src/types/types";
+import { Recipe } from "../../types";
 
 type Props = {
-  data: Pick<TRecipe, "name" | "image" | "cookTimeMinutes" | "difficulty" | "cuisine" | "mealType" | "instructions">;
+  data: Pick<Recipe, "name" | "image" | "cookTimeMinutes" | "difficulty" | "cuisine" | "mealType" | "instructions">;
 };
 
 export const RecipeItem = ({ data }: Props) => {

@@ -46,6 +46,7 @@ export const RadioBlock = () => {
           text="Высокая"
           onChange={handleChange}
           checked={isChecked("Высокая")}
+          disabled
         />
       </div>
     </div>

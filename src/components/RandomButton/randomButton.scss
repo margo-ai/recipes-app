@@ -3,6 +3,10 @@
 .random-button {
   margin-bottom: 34px;
 
+  &.disabled {
+    @include mixins.disabled;
+  }
+
   &__title {
     font-size: 16px;
     line-height: 24px;
@@ -10,7 +14,7 @@
 
     margin-bottom: 24px;
 
-    @include mixins.disabled;
+    // @include mixins.disabled;
   }
 
   &__button {
@@ -24,6 +28,6 @@
     line-height: 22px;
 
     cursor: pointer;
-    @include mixins.disabled;
+    // @include mixins.disabled;
   }
 }

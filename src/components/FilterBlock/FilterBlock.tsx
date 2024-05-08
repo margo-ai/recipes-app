@@ -27,7 +27,7 @@ export const FilterBlock = () => {
       </div>
       <Filters />
 
-      <RandomButton />
+      <RandomButton disabled />
     </div>
   );
 };

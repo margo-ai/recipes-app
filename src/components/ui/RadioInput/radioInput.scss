@@ -1,12 +1,18 @@
 @use "../../../styles/mixins.scss" as mixins;
 
 .radio-button {
+  // &:last-child {
+  //   @include mixins.disabled;
+  // }
+  &.disabled {
+    @include mixins.disabled;
+  }
   &:not(:last-child) > span {
     border-right: none;
   }
-  &:last-child > span {
-    @include mixins.disabled;
-  }
+  // &:last-child > span {
+  //   @include mixins.disabled;
+  // }
   span {
     display: flex;
     justify-content: center;

@@ -9,11 +9,12 @@ type Props = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
   text: string;
+  disabled?: boolean;
 };
 
-export const RadioInput = ({ id, name, value, onChange, checked, text }: Props) => {
+export const RadioInput = ({ id, name, value, onChange, checked, text, disabled = false }: Props) => {
   return (
-    <label htmlFor={id} className="radio-button">
+    <label htmlFor={id} className={`radio-button ${disabled ? "disabled" : ""}`}>
       <input
         type="radio"
         className="radio-button__input"
