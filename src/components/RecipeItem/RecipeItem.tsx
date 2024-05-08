@@ -16,7 +16,7 @@ export const RecipeItem = ({ data }: Props) => {
   const { name, image, cuisine, difficulty, cookTimeMinutes, mealType, instructions } = data;
 
   return (
-    <div className="list__item item">
+    <li className="list__item item">
       <div className="item__left">
         <div className="item__title">{name}</div>
         <div className="item__image">
@@ -74,6 +74,6 @@ export const RecipeItem = ({ data }: Props) => {
         <div className="item__cuisine">{cuisine}</div>
         <div className="item__meal-type">{mealType.join(", ")}</div>
       </div>
-    </div>
+    </li>
   );
 };
