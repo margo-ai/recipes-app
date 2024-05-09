@@ -1,51 +1,51 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { RadioInput } from "../ui/RadioInput";
 
 import "./radioBlock.scss";
 
-export const RadioBlock = () => {
-  const [difficulty, setDifficulty] = useState("Любая");
+type Props = {
+  difficulty: string;
+  handleChangeDifficulty: (e: ChangeEvent<HTMLInputElement>) => void;
+};
 
-  const handleChange = (e: { target: { value: React.SetStateAction<string> } }) => {
-    setDifficulty(e.target.value);
-  };
-
+export const RadioBlock = ({ difficulty, handleChangeDifficulty }: Props) => {
   const isChecked = (value: string) => difficulty === value;
+
   return (
     <div className="radio-block">
       <div className="radio-block__title">Сложность приготовления:</div>
       <div className="radio-block__inputs">
         <RadioInput
-          id="Любая"
-          name="Любая"
-          value="Любая"
-          text="Любая"
-          onChange={handleChange}
-          checked={isChecked("Любая")}
+          id="Any"
+          name="Any"
+          value="Any"
+          text="Any"
+          onChange={handleChangeDifficulty}
+          checked={isChecked("Any")}
         />
         <RadioInput
-          id="Низкая"
-          name="Низкая"
-          value="Низкая"
-          text="Низкая"
-          onChange={handleChange}
-          checked={isChecked("Низкая")}
+          id="Easy"
+          name="Easy"
+          value="Easy"
+          text="Easy"
+          onChange={handleChangeDifficulty}
+          checked={isChecked("Easy")}
         />
         <RadioInput
-          id="Средняя"
-          name="Средняя"
-          value="Средняя"
-          text="Средняя"
-          onChange={handleChange}
-          checked={isChecked("Средняя")}
+          id="Medium"
+          name="Medium"
+          value="Medium"
+          text="Medium"
+          onChange={handleChangeDifficulty}
+          checked={isChecked("Medium")}
         />
         <RadioInput
-          id="Высокая"
-          name="Высокая"
-          value="Высокая"
-          text="Высокая"
-          onChange={handleChange}
-          checked={isChecked("Высокая")}
+          id="Hard"
+          name="Hard"
+          value="Hard"
+          text="Hard"
+          onChange={handleChangeDifficulty}
+          checked={isChecked("Hard")}
           disabled
         />
       </div>

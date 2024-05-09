@@ -13,10 +13,9 @@ import { fetchRecipes } from "../../features/recipes/recipesSlice";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { Loader } from "../Loader";
 
-type ListRecipe = Pick<
-  Recipe,
-  "id" | "image" | "name" | "cookTimeMinutes" | "difficulty" | "cuisine" | "mealType" | "instructions"
->;
+import { setTotal } from "../../features/recipes/recipesSlice";
+
+import { TransformedRecipe } from "../../features/recipes/recipesSlice";
 
 export const RecipesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,23 +23,44 @@ export const RecipesList = () => {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchRecipes());
-  }, []);
   const recipes = useAppSelector((state) => state.recipesReducer.recipes);
-  console.log(recipes);
-
+  // console.log(recipes);
+  const selectedCuisine = useAppSelector((state) => state.recipesReducer.selectedCuisine);
+  const selectedMealType = useAppSelector((state) => state.recipesReducer.selectedMealType);
+  const selectedDifficulty = useAppSelector((state) => state.recipesReducer.selectedDifficulty);
   const recipesLoadingStatus = useAppSelector((state) => state.recipesReducer.recipesLoadingStatus);
   const total = useAppSelector((state) => state.recipesReducer.totalRecipes);
 
+  useEffect(() => {
+    dispatch(fetchRecipes());
+  }, []);
+
+  const filterRecipes = (recipes: TransformedRecipe[], cuisine: string, mealType: string, difficulty: string) => {
+    const filteredRecipes = recipes.filter((recipe) => {
+      return (
+        (cuisine === "All countries and regions" ? recipe : recipe.cuisine === cuisine) &&
+        (mealType === "All meal types" ? recipe : recipe.mealType.includes(mealType)) &&
+        (difficulty === "Any" ? recipe : recipe.difficulty === difficulty)
+      );
+    });
+
+    return filteredRecipes;
+  };
+  const filteredRecipes = filterRecipes(recipes, selectedCuisine, selectedMealType, selectedDifficulty);
   const getCurrentRecipes = ({ currentPage, recipesPerPage }: { currentPage: number; recipesPerPage: number }) => {
     const lastRecipeIndex = currentPage * recipesPerPage;
     const firstRecipeIndex = lastRecipeIndex - recipesPerPage;
-    return recipes.slice(firstRecipeIndex, lastRecipeIndex);
+    return filteredRecipes.slice(firstRecipeIndex, lastRecipeIndex);
   };
 
   const currentRecipes = getCurrentRecipes({ currentPage, recipesPerPage });
-  console.log(currentRecipes);
+  useEffect(() => {
+    dispatch(setTotal(filteredRecipes.length));
+  }, [filteredRecipes]);
+
+  // console.log(currentRecipes);
+  // console.log(total);
+  console.log(selectedDifficulty);
 
   return (
     <div className="recipes">
@@ -53,12 +73,14 @@ export const RecipesList = () => {
         </div>
       ) : recipesLoadingStatus === "error" ? (
         <div className="error-wrapper">Loading error! Try again!</div>
-      ) : (
+      ) : !!filteredRecipes.length ? (
         <ul className="recipes__list list">
-          {currentRecipes.map((recipe: ListRecipe) => (
+          {currentRecipes.map((recipe: TransformedRecipe) => (
             <RecipeItem key={recipe.id} data={recipe} />
           ))}
         </ul>
+      ) : (
+        <div className="not-found-wrapper">Not found any recipe</div>
       )}
       {!!currentRecipes.length && (
         <Pagination

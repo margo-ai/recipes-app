@@ -7,13 +7,17 @@ import notFilledStar from "../../assets/star-icon.svg";
 
 import "./recipeItem.scss";
 import { Recipe } from "../../types";
+import { TransformedRecipe } from "src/features/recipes/recipesSlice";
 
 type Props = {
-  data: Pick<Recipe, "name" | "image" | "cookTimeMinutes" | "difficulty" | "cuisine" | "mealType" | "instructions">;
+  data: Pick<
+    TransformedRecipe,
+    "name" | "image" | "cuisine" | "difficulty" | "cookingTime" | "mealType" | "instructions"
+  >;
 };
 
 export const RecipeItem = ({ data }: Props) => {
-  const { name, image, cuisine, difficulty, cookTimeMinutes, mealType, instructions } = data;
+  const { name, image, cuisine, difficulty, cookingTime, mealType, instructions } = data;
 
   return (
     <li className="list__item item">
@@ -29,7 +33,7 @@ export const RecipeItem = ({ data }: Props) => {
           <div className="time__icon">
             <img src={icon} alt="Timer icon" />
           </div>
-          <div className="time__text">{cookTimeMinutes} минут</div>
+          <div className="time__text">{cookingTime} минут</div>
         </div>
         <div className="item__difficulty difficulty">
           <div className="difficulty__text">Сложность:</div>
