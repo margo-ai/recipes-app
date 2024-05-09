@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
 
-import { Pagination } from "antd";
+import { Pagination, Spin } from "antd";
 import "./recipesList.scss";
 
-import { renderPaginationItems } from "src/utils/helpers";
+import { renderPaginationItems } from "../../utils/helpers";
 
 import { RecipeItem } from "../RecipeItem";
 
 import { Recipe } from "../../types";
 
+import { fetchRecipes } from "../../features/recipes/recipesSlice";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+
 export const RecipesList = () => {
-  const [total, setTotal] = useState<number>(0);
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(6);
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    fetch("https://dummyjson.com/recipes?limit=50")
-      .then((res) => res.json())
-      .then((data): void => {
-        const total = data.total;
-        const recipes = data.recipes;
-        setTotal(total);
-        setRecipes(recipes);
-      });
+    dispatch(fetchRecipes());
   }, []);
+  const recipes = useAppSelector((state) => state.recipesReducer.recipes);
+  console.log(recipes);
+
+  const recipesLoadingStatus = useAppSelector((state) => state.recipesReducer.recipesLoadingStatus);
+  const total = useAppSelector((state) => state.recipesReducer.totalRecipes);
 
   const getCurrentRecipes = ({ currentPage, recipesPerPage }: { currentPage: number; recipesPerPage: number }) => {
     const lastRecipeIndex = currentPage * recipesPerPage;
@@ -33,17 +34,29 @@ export const RecipesList = () => {
   };
 
   const currentRecipes = getCurrentRecipes({ currentPage, recipesPerPage });
+  console.log(currentRecipes);
 
   return (
     <div className="recipes">
       <div className="recipes__count">
         Найденные рецепты<span>{total}</span>
       </div>
-      <ul className="recipes__list list">
-        {currentRecipes.map((recipe) => (
-          <RecipeItem key={recipe.id} data={recipe} />
-        ))}
-      </ul>
+      {recipesLoadingStatus === "loading" ? (
+        <Spin size="large" />
+      ) : (
+        <ul className="recipes__list list">
+          {currentRecipes.map(
+            (
+              recipe: Pick<
+                Recipe,
+                "id" | "image" | "name" | "cookTimeMinutes" | "difficulty" | "cuisine" | "mealType" | "instructions"
+              >,
+            ) => (
+              <RecipeItem key={recipe.id} data={recipe} />
+            ),
+          )}
+        </ul>
+      )}
       {!!currentRecipes.length && (
         <Pagination
           current={currentPage}

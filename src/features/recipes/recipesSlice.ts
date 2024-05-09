@@ -7,7 +7,7 @@ const transformRecipeData = (recipeData: Recipe) => {
     id: recipeData.id,
     name: recipeData.name,
     image: recipeData.image,
-    description: recipeData.instructions.join(" "),
+    instructions: recipeData.instructions,
     cookingTime: recipeData.cookTimeMinutes,
     difficulty: recipeData.difficulty,
     cuisine: recipeData.cuisine,
