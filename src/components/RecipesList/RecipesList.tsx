@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Pagination, Spin } from "antd";
+import { Pagination } from "antd";
 import "./recipesList.scss";
 
 import { renderPaginationItems } from "../../utils/helpers";
@@ -11,6 +11,12 @@ import { Recipe } from "../../types";
 
 import { fetchRecipes } from "../../features/recipes/recipesSlice";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { Loader } from "../Loader";
+
+type ListRecipe = Pick<
+  Recipe,
+  "id" | "image" | "name" | "cookTimeMinutes" | "difficulty" | "cuisine" | "mealType" | "instructions"
+>;
 
 export const RecipesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,19 +48,16 @@ export const RecipesList = () => {
         Найденные рецепты<span>{total}</span>
       </div>
       {recipesLoadingStatus === "loading" ? (
-        <Spin size="large" />
+        <div className="loader-wrapper">
+          <Loader />
+        </div>
+      ) : recipesLoadingStatus === "error" ? (
+        <div className="error-wrapper">Loading error! Try again!</div>
       ) : (
         <ul className="recipes__list list">
-          {currentRecipes.map(
-            (
-              recipe: Pick<
-                Recipe,
-                "id" | "image" | "name" | "cookTimeMinutes" | "difficulty" | "cuisine" | "mealType" | "instructions"
-              >,
-            ) => (
-              <RecipeItem key={recipe.id} data={recipe} />
-            ),
-          )}
+          {currentRecipes.map((recipe: ListRecipe) => (
+            <RecipeItem key={recipe.id} data={recipe} />
+          ))}
         </ul>
       )}
       {!!currentRecipes.length && (

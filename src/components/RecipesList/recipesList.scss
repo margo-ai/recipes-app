@@ -95,3 +95,20 @@
     opacity: 0.5;
   }
 }
+
+.loader-wrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.error-wrapper {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+  background-color: #fff;
+  margin-top: 12px;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+}
