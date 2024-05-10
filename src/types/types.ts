@@ -8,7 +8,7 @@ export type Recipe = {
   cuisine: string;
   mealType: string[];
   tags: string[];
-  caloriesPerServings: number;
+  caloriesPerServing: number;
   servings: number;
   cookTimeMinutes: number;
   instructions: string[];

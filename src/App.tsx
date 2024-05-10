@@ -1,18 +1,21 @@
-import React, { useEffect } from "react";
-import { MainPageHeader } from "./components/MainPageHeader";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { MainPage } from "./pages/MainPage";
+import { RecipePage } from "./pages/RecipePage";
 
 import "./styles/app.scss";
-import { FilterBlock } from "./components/FilterBlock";
-import { RecipesList } from "./components/RecipesList";
 
 export const App = () => {
   return (
-    <div className="app">
-      <MainPageHeader />
-      <main className="main">
-        <FilterBlock />
-        <RecipesList />
-      </main>
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/:recipeId" element={<RecipePage />} />
+          <Route path="*" element={<MainPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };
