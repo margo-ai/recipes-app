@@ -46,7 +46,6 @@ export const RadioBlock = ({ difficulty, handleChangeDifficulty }: Props) => {
           text="Hard"
           onChange={handleChangeDifficulty}
           checked={isChecked("Hard")}
-          disabled
         />
       </div>
     </div>

@@ -27,6 +27,7 @@
 }
 
 .list {
+  background-color: rgba(255, 255, 255, 0.5);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 8px 12px;
@@ -49,6 +50,10 @@
     border: 1px solid #d9d9d9;
     border-radius: 2px;
     background-color: #fff;
+    &:not(.ant-pagination-item-active):hover {
+      background-color: #fff;
+      border: 1px solid #1890ff;
+    }
 
     a {
       display: flex;
@@ -57,6 +62,9 @@
       width: 32px;
       height: 32px;
       color: #000;
+      &:hover {
+        color: #1890ff;
+      }
     }
 
     &.ant-pagination-item-active {
@@ -67,6 +75,17 @@
         color: #1677ff;
       }
     }
+    // &:hover {
+    //   color: #1890ff;
+    //   border: 1px solid #1890ff;
+    //   background-color: #fff;
+
+    //   a {
+    //     color: #1890ff;
+    //     border: 1px solid #1890ff;
+    //     background-color: #fff;
+    //   }
+    // }
   }
 }
 
@@ -91,6 +110,9 @@
   background-color: #fff;
   border-radius: 2px;
 
+  &:hover:not(.ant-pagination-disabled) {
+    border: 1px solid #1890ff;
+  }
   a[disabled] {
     opacity: 0.5;
   }

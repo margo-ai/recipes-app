@@ -1,22 +1,23 @@
 @use "../../../styles/mixins.scss" as mixins;
 
 .radio-button {
-  // &:last-child {
-  //   @include mixins.disabled;
-  // }
-  &.disabled {
-    @include mixins.disabled;
+  &:not(:first-child) > span {
+    border-left: none;
   }
-  &:not(:last-child) > span {
-    border-right: none;
-  }
-  // &:last-child > span {
-  //   @include mixins.disabled;
-  // }
+
   span {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  &:first-child > span {
+    border-radius: 2px 0 0 2px;
+  }
+  &:last-child > span {
+    opacity: 0.2;
+  }
+  &:nth-child(3) > span {
+    border-radius: 0 2px 2px 0;
   }
   &__input {
     display: none;
@@ -25,6 +26,11 @@
       color: #fff;
       background-color: #1890ff;
       border: none;
+    }
+
+    &:disabled + span {
+      background-color: #f5f5f5;
+      cursor: not-allowed;
     }
   }
 

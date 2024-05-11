@@ -29,9 +29,13 @@ export const RandomButton = ({ disabled = false }: Props) => {
   };
 
   return (
-    <div className={`random-button ${disabled ? "disabled" : ""}`}>
+    <div className="random-button">
       <div className="random-button__title">А еще можно попробовать на вкус удачу</div>
-      <Link to={`/surprise`} className="random-button__button" onClick={handleRandomButton}>
+      <Link
+        to={`/surprise`}
+        className={`random-button__button ${disabled ? "disabled" : ""}`}
+        onClick={handleRandomButton}
+      >
         Мне повезёт!
       </Link>
     </div>
