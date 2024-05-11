@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from "react";
-
 import { Pagination } from "antd";
-import "./recipesList.scss";
-
-import { renderPaginationItems } from "../../utils/helpers";
 
 import { RecipeItem } from "../RecipeItem";
+import arrowPrev from "../../assets/arrow-left.svg";
+import arrowNext from "../../assets/arrow-right.svg";
 
-import { Recipe } from "../../types";
+import "./recipesList.scss";
 
-import { fetchRecipes } from "../../features/recipes/recipesSlice";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { Loader } from "../Loader";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { setTotal, setCurrentRecipes, TTransformedRecipe, fetchRecipes } from "../../features/recipes/recipesSlice";
 
-import { setTotal, setCurrentRecipes } from "../../features/recipes/recipesSlice";
+type TPaginationItems = "page" | "prev" | "next" | "jump-prev" | "jump-next";
 
-import { TransformedRecipe } from "../../features/recipes/recipesSlice";
-
+const renderPaginationItems = (page: number, type: TPaginationItems) => {
+  switch (type) {
+    case "page":
+      return <a className="page-link">{page}</a>;
+    case "jump-prev":
+    case "jump-next":
+      return <a>•••</a>;
+    case "next":
+      return (
+        <a className="page-link">
+          <img src={arrowNext} alt="Prev arrow icon" />
+        </a>
+      );
+    case "prev":
+      return (
+        <a className="page-link">
+          <img src={arrowPrev} alt="Next arrow icon" />
+        </a>
+      );
+  }
+};
 export const RecipesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(6);
@@ -24,7 +41,6 @@ export const RecipesList = () => {
   const dispatch = useAppDispatch();
 
   const recipes = useAppSelector((state) => state.recipesReducer.recipes);
-  // console.log(recipes);
   const selectedCuisine = useAppSelector((state) => state.recipesReducer.selectedCuisine);
   const selectedMealType = useAppSelector((state) => state.recipesReducer.selectedMealType);
   const selectedDifficulty = useAppSelector((state) => state.recipesReducer.selectedDifficulty);
@@ -35,7 +51,7 @@ export const RecipesList = () => {
     dispatch(fetchRecipes());
   }, []);
 
-  const filterRecipes = (recipes: TransformedRecipe[], cuisine: string, mealType: string, difficulty: string) => {
+  const filterRecipes = (recipes: TTransformedRecipe[], cuisine: string, mealType: string, difficulty: string) => {
     const filteredRecipes = recipes.filter((recipe) => {
       return (
         (cuisine === "All countries and regions" ? recipe : recipe.cuisine === cuisine) &&
@@ -59,10 +75,6 @@ export const RecipesList = () => {
     dispatch(setCurrentRecipes(filteredRecipes));
   }, [filteredRecipes, currentRecipes]);
 
-  // console.log(currentRecipes);
-  // console.log(total);
-  console.log(selectedDifficulty);
-
   return (
     <div className="recipes">
       <div className="recipes__count">
@@ -76,7 +88,7 @@ export const RecipesList = () => {
         <div className="error-wrapper">Loading error! Try again!</div>
       ) : !!filteredRecipes.length ? (
         <ul className="recipes__list list">
-          {currentRecipes.map((recipe: TransformedRecipe) => (
+          {currentRecipes.map((recipe: TTransformedRecipe) => (
             <RecipeItem key={recipe.id} data={recipe} />
           ))}
         </ul>

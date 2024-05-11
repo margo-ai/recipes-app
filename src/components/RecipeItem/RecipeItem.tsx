@@ -6,15 +6,61 @@ import filledStar from "../../assets/filled-star-icon.svg";
 import notFilledStar from "../../assets/star-icon.svg";
 
 import "./recipeItem.scss";
-import { Recipe } from "../../types";
-import { TransformedRecipe } from "src/features/recipes/recipesSlice";
 
-import { setCurrentRecipeId } from "../../features/recipes/recipesSlice";
 import { useAppDispatch } from "../../utils/hooks";
+import { setCurrentRecipeId, TTransformedRecipe } from "../../features/recipes/recipesSlice";
+
+const renderRecipeDifficulty = (difficulty: string) => {
+  switch (difficulty) {
+    case "Easy":
+      return (
+        <div className="difficulty__stars">
+          <div className="difficulty__star">
+            <img src={filledStar} alt="Filled star" />
+          </div>
+          <div className="difficulty__star">
+            <img src={notFilledStar} alt="Filled star" />
+          </div>
+          <div className="difficulty__star">
+            <img src={notFilledStar} alt="Filled star" />
+          </div>
+        </div>
+      );
+
+    case "Medium":
+      return (
+        <div className="difficulty__stars">
+          <div className="difficulty__star">
+            <img src={filledStar} alt="Filled star" />
+          </div>
+          <div className="difficulty__star">
+            <img src={filledStar} alt="Filled star" />
+          </div>
+          <div className="difficulty__star">
+            <img src={notFilledStar} alt="Filled star" />
+          </div>
+        </div>
+      );
+    default:
+      return (
+        <div className="difficulty__stars">
+          <div className="difficulty__star">
+            <img src={filledStar} alt="Filled star" />
+          </div>
+          <div className="difficulty__star">
+            <img src={filledStar} alt="Filled star" />
+          </div>
+          <div className="difficulty__star">
+            <img src={filledStar} alt="Filled star" />
+          </div>
+        </div>
+      );
+  }
+};
 
 type Props = {
   data: Pick<
-    TransformedRecipe,
+    TTransformedRecipe,
     "name" | "image" | "cuisine" | "difficulty" | "cookingTime" | "mealType" | "instructions" | "id"
   >;
 };
@@ -25,8 +71,6 @@ export const RecipeItem = ({ data }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleRecipe = (id: number) => {
-    console.log(id);
-
     dispatch(setCurrentRecipeId(id));
   };
 
@@ -49,43 +93,7 @@ export const RecipeItem = ({ data }: Props) => {
           </div>
           <div className="item__difficulty difficulty">
             <div className="difficulty__text">Сложность:</div>
-            {difficulty === "Easy" ? (
-              <div className="difficulty__stars">
-                <div className="difficulty__star">
-                  <img src={filledStar} alt="Filled star" />
-                </div>
-                <div className="difficulty__star">
-                  <img src={notFilledStar} alt="Filled star" />
-                </div>
-                <div className="difficulty__star">
-                  <img src={notFilledStar} alt="Filled star" />
-                </div>
-              </div>
-            ) : difficulty === "Medium" ? (
-              <div className="difficulty__stars">
-                <div className="difficulty__star">
-                  <img src={filledStar} alt="Filled star" />
-                </div>
-                <div className="difficulty__star">
-                  <img src={filledStar} alt="Filled star" />
-                </div>
-                <div className="difficulty__star">
-                  <img src={notFilledStar} alt="Filled star" />
-                </div>
-              </div>
-            ) : (
-              <div className="difficulty__stars">
-                <div className="difficulty__star">
-                  <img src={filledStar} alt="Filled star" />
-                </div>
-                <div className="difficulty__star">
-                  <img src={filledStar} alt="Filled star" />
-                </div>
-                <div className="difficulty__star">
-                  <img src={filledStar} alt="Filled star" />
-                </div>
-              </div>
-            )}
+            {renderRecipeDifficulty(difficulty)}
           </div>
           <div className="item__cuisine">{cuisine}</div>
           <div className="item__meal-type">{mealType.join(", ")}</div>

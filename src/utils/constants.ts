@@ -1,4 +1,4 @@
-export const cuisines = [
+export const cuisines: string[] = [
   "All countries and regions",
   "Italian",
   "Asian",
@@ -23,7 +23,7 @@ export const cuisines = [
   "Hawaiian",
 ];
 
-export const mealTypes = [
+export const mealTypes: string[] = [
   "All meal types",
   "Dinner",
   "Lunch",

@@ -1,10 +1,10 @@
-export type Difficulty = "Easy" | "Medium" | "Hard";
+export type TDifficulty = "Easy" | "Medium" | "Hard";
 
-export type Recipe = {
+export type TRecipe = {
   id: number;
   name: string;
   image: string;
-  difficulty: Difficulty;
+  difficulty: TDifficulty;
   cuisine: string;
   mealType: string[];
   tags: string[];

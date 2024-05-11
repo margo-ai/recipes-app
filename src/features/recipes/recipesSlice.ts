@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { Difficulty, Recipe } from "../../types";
+import { TDifficulty, TRecipe } from "../../types";
 
-export type TransformedRecipe = {
+export type TTransformedRecipe = {
   id: number;
   name: string;
   image: string;
@@ -10,14 +10,14 @@ export type TransformedRecipe = {
   cookingTime: number;
   preparingTime: number;
   servings: number;
-  difficulty: Difficulty;
+  difficulty: TDifficulty;
   cuisine: string;
   mealType: string[];
   tags: string[];
   caloriesPerServing: number;
 };
 
-const transformRecipeData = (recipeData: Recipe): TransformedRecipe => {
+const transformRecipeData = (recipeData: TRecipe): TTransformedRecipe => {
   return {
     id: recipeData.id,
     name: recipeData.name,
@@ -35,14 +35,14 @@ const transformRecipeData = (recipeData: Recipe): TransformedRecipe => {
   };
 };
 type State = {
-  recipes: TransformedRecipe[];
+  recipes: TTransformedRecipe[];
   recipesLoadingStatus: string;
   totalRecipes: number;
   selectedCuisine: string;
   selectedMealType: string;
   selectedDifficulty: string;
   currentRecipeId: number;
-  currentRecipes: TransformedRecipe[];
+  currentRecipes: TTransformedRecipe[];
 };
 
 const initialState: State = {
@@ -84,7 +84,7 @@ const recipesSlice = createSlice({
     setCurrentRecipeId: (state, action: PayloadAction<number>) => {
       state.currentRecipeId = action.payload;
     },
-    setCurrentRecipes: (state, action: PayloadAction<TransformedRecipe[]>) => {
+    setCurrentRecipes: (state, action: PayloadAction<TTransformedRecipe[]>) => {
       state.currentRecipes = action.payload;
     },
   },

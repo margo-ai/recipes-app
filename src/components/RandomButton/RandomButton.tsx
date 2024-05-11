@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./randomButton.scss";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { setCurrentRecipeId } from "../../features/recipes/recipesSlice";
-import { Link } from "react-router-dom";
 
 type Props = {
   disabled?: boolean;
@@ -21,10 +21,8 @@ export const RandomButton = ({ disabled = false }: Props) => {
   let recipeId;
   const handleRandomButton = () => {
     const id = getRandomInt(1, total);
-    console.log(id);
 
     recipeId = id;
-    console.log(recipeId);
     dispatch(setCurrentRecipeId(recipeId));
   };
 

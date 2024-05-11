@@ -1,9 +1,8 @@
 import React from "react";
 
-import { useAppSelector } from "../utils/hooks";
-
 import { PageHeader } from "../components/PageHeader";
 import { SingleRecipe } from "../components/SingleRecipe";
+import { useAppSelector } from "../utils/hooks";
 
 export const RecipePage = () => {
   const currentRecipeId = useAppSelector((state) => state.recipesReducer.currentRecipeId);
@@ -13,7 +12,6 @@ export const RecipePage = () => {
     return recipes.find((recipe) => recipe.id === currentRecipeId);
   };
   const recipeData = getRecipe();
-  console.log(recipeData);
 
   return (
     <>

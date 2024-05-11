@@ -1,32 +1,28 @@
 import React, { ChangeEvent } from "react";
-import { Select } from "../ui/Select";
+import { Select } from "antd";
+
+import arrowDown from "../../assets/arrow-down.svg";
 
 import "./filters.scss";
-import { RadioBlock } from "../RadioBlock";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 import { cuisines, mealTypes } from "../../utils/constants";
+import { RadioBlock } from "../RadioBlock";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { setSelectedCuisine, setSelectedMealType, setSelectedDifficulty } from "../../features/recipes/recipesSlice";
 
 export const Filters = () => {
   const dispatch = useAppDispatch();
-  const cuisineSelectOptions = cuisines.map((cuisine) => {
-    return { label: cuisine, value: cuisine };
-  });
-  const mealTypeSelectOptions = mealTypes.map((mealType) => {
-    return { label: mealType, value: mealType };
-  });
 
   const selectedCuisine = useAppSelector((state) => state.recipesReducer.selectedCuisine);
   const selectedMealType = useAppSelector((state) => state.recipesReducer.selectedMealType);
   const selectedDifficulty = useAppSelector((state) => state.recipesReducer.selectedDifficulty);
 
-  const handleChangeCuisine = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setSelectedCuisine(e.target.value));
+  const handleChangeCuisine = (value: string) => {
+    dispatch(setSelectedCuisine(value));
   };
 
-  const handleChangeMealType = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setSelectedMealType(e.target.value));
+  const handleChangeMealType = (value: string) => {
+    dispatch(setSelectedMealType(value));
   };
 
   const handleChangeDifficulty = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,13 +37,32 @@ export const Filters = () => {
 
   return (
     <div className="filters">
-      <Select label="Кухня: " options={cuisineSelectOptions} value={selectedCuisine} onChange={handleChangeCuisine} />
-      <Select
-        label="Тип блюда:"
-        options={mealTypeSelectOptions}
-        value={selectedMealType}
-        onChange={handleChangeMealType}
-      />
+      <div className="select">
+        <span className="select__label">Кухня:</span>
+        <Select
+          suffixIcon={<img src={arrowDown} alt="Arrow down icon" width="10px" height="11.25px" />}
+          className="select__block"
+          value={selectedCuisine}
+          onChange={handleChangeCuisine}
+          options={cuisines.map((item) => ({
+            label: item,
+            value: item,
+          }))}
+        />
+      </div>
+      <div className="select">
+        <span className="select__label">Тип блюда:</span>
+        <Select
+          suffixIcon={<img src={arrowDown} alt="Arrow down icon" width="10px" height="11.25px" />}
+          className="select__block"
+          value={selectedMealType}
+          onChange={handleChangeMealType}
+          options={mealTypes.map((item) => ({
+            label: item,
+            value: item,
+          }))}
+        />
+      </div>
       <RadioBlock difficulty={selectedDifficulty} handleChangeDifficulty={handleChangeDifficulty} />
       <button className="reset-button" onClick={handleResetButton}>
         Сбросить все фильтры

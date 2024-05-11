@@ -1,7 +1,8 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { RadioInput } from "../ui/RadioInput";
 
 import "./radioBlock.scss";
+
+import { RadioInput } from "../ui/RadioInput";
 
 type Props = {
   difficulty: string;

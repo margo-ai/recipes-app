@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import "./PageHeader.scss";
-
 import arrowBack from "../../assets/arrow-back.svg";
+
+import "./PageHeader.scss";
 
 type Props = {
   recipeName?: string;

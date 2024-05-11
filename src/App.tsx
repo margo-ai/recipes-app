@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import "./styles/app.scss";
+
 import { MainPage } from "./pages/MainPage";
 import { RecipePage } from "./pages/RecipePage";
-
-import "./styles/app.scss";
 
 export const App = () => {
   return (

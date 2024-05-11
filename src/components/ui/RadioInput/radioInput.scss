@@ -1,5 +1,3 @@
-@use "../../../styles/mixins.scss" as mixins;
-
 .radio-button {
   &:not(:first-child) > span {
     border-left: none;
@@ -10,15 +8,19 @@
     justify-content: center;
     align-items: center;
   }
+
   &:first-child > span {
     border-radius: 2px 0 0 2px;
   }
+
   &:last-child > span {
     opacity: 0.2;
   }
+
   &:nth-child(3) > span {
     border-radius: 0 2px 2px 0;
   }
+
   &__input {
     display: none;
 
