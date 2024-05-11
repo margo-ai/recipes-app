@@ -9,7 +9,7 @@ import "./recipeItem.scss";
 import { Recipe } from "../../types";
 import { TransformedRecipe } from "src/features/recipes/recipesSlice";
 
-import { setRecipe } from "../../features/recipes/recipesSlice";
+import { setCurrentRecipeId } from "../../features/recipes/recipesSlice";
 import { useAppDispatch } from "../../utils/hooks";
 
 type Props = {
@@ -25,7 +25,9 @@ export const RecipeItem = ({ data }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleRecipe = (id: number) => {
-    dispatch(setRecipe(id));
+    console.log(id);
+
+    dispatch(setCurrentRecipeId(id));
   };
 
   return (

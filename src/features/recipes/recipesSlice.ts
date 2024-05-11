@@ -41,7 +41,8 @@ type State = {
   selectedCuisine: string;
   selectedMealType: string;
   selectedDifficulty: string;
-  selectedRecipe: number;
+  currentRecipeId: number;
+  currentRecipes: TransformedRecipe[];
 };
 
 const initialState: State = {
@@ -51,7 +52,8 @@ const initialState: State = {
   selectedCuisine: "All countries and regions",
   selectedMealType: "All meal types",
   selectedDifficulty: "Any",
-  selectedRecipe: null,
+  currentRecipeId: null,
+  currentRecipes: [],
 };
 
 const URL = "https://dummyjson.com/recipes?limit=50";
@@ -79,8 +81,11 @@ const recipesSlice = createSlice({
     setTotal: (state, action: PayloadAction<number>) => {
       state.totalRecipes = action.payload;
     },
-    setRecipe: (state, action: PayloadAction<number>) => {
-      state.selectedRecipe = action.payload;
+    setCurrentRecipeId: (state, action: PayloadAction<number>) => {
+      state.currentRecipeId = action.payload;
+    },
+    setCurrentRecipes: (state, action: PayloadAction<TransformedRecipe[]>) => {
+      state.currentRecipes = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -103,6 +108,13 @@ const recipesSlice = createSlice({
 });
 
 const { reducer, actions } = recipesSlice;
-export const { setSelectedCuisine, setSelectedMealType, setSelectedDifficulty, setTotal, setRecipe } = actions;
+export const {
+  setSelectedCuisine,
+  setSelectedMealType,
+  setSelectedDifficulty,
+  setTotal,
+  setCurrentRecipeId,
+  setCurrentRecipes,
+} = actions;
 
 export default reducer;

@@ -16,7 +16,7 @@ export const PageHeader = ({ recipeName }: Props) => {
     <>
       {!!recipeName ? (
         <header className="header">
-          <button className="header__backButton" onClick={() => navigate(-1)}>
+          <button className="header__backButton" onClick={() => navigate("/")}>
             <img src={arrowBack} alt="Back button icon" />
           </button>
           <h1>{recipeName}</h1>

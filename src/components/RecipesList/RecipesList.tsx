@@ -13,7 +13,7 @@ import { fetchRecipes } from "../../features/recipes/recipesSlice";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { Loader } from "../Loader";
 
-import { setTotal } from "../../features/recipes/recipesSlice";
+import { setTotal, setCurrentRecipes } from "../../features/recipes/recipesSlice";
 
 import { TransformedRecipe } from "../../features/recipes/recipesSlice";
 
@@ -56,7 +56,8 @@ export const RecipesList = () => {
   const currentRecipes = getCurrentRecipes({ currentPage, recipesPerPage });
   useEffect(() => {
     dispatch(setTotal(filteredRecipes.length));
-  }, [filteredRecipes]);
+    dispatch(setCurrentRecipes(filteredRecipes));
+  }, [filteredRecipes, currentRecipes]);
 
   // console.log(currentRecipes);
   // console.log(total);

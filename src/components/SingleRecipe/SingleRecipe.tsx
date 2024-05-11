@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import { Steps } from "antd";
 
 import stepIcon from "../../assets/step-icon.svg";
-import arrowPrev from "../../assets/arrow-left.svg";
-import arrowNext from "../../assets/arrow-right.svg";
 
-import { TransformedRecipe, setRecipe } from "../../features/recipes/recipesSlice";
+import { TransformedRecipe, setCurrentRecipeId } from "../../features/recipes/recipesSlice";
 
 import "./singleRecipe.scss";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
@@ -41,12 +39,29 @@ export const SingleRecipe = ({ data }: Props) => {
     image,
     id,
   } = data;
-  const totalRecipes = useAppSelector((state) => state.recipesReducer.totalRecipes);
-  console.log(id, totalRecipes);
 
   const dispatch = useAppDispatch();
-  const handleRecipe = (id: number) => {
-    dispatch(setRecipe(id));
+  // список рецептов с учетом проставленных фильтров
+  const currentRecipes = useAppSelector((state) => state.recipesReducer.currentRecipes);
+  // ids данного списка
+  const currentRecipesIds = currentRecipes.map((recipe) => recipe.id);
+  // id текущего открытого рецепта
+  const currentRecipeId = useAppSelector((state) => state.recipesReducer.currentRecipeId);
+  // id предыдущего рецепта
+  const prevRecipeId = currentRecipesIds[currentRecipesIds.indexOf(currentRecipeId) - 1];
+  // id следующего рецепта
+  const nextRecipeId = currentRecipesIds[currentRecipesIds.indexOf(currentRecipeId) + 1];
+
+  // получение id прдыдущего рецепта
+  const getPrevRecipeId = (currentRecipesIds: number[], currentRecipeId: number) => {
+    const index = currentRecipesIds.indexOf(currentRecipeId);
+    dispatch(setCurrentRecipeId(currentRecipesIds[index - 1]));
+  };
+
+  // получение id следующего рецепта
+  const getNextRecipeId = (currentRecipesIds: number[], currentRecipeId: number) => {
+    const index = currentRecipesIds.indexOf(currentRecipeId);
+    dispatch(setCurrentRecipeId(currentRecipesIds[index + 1]));
   };
 
   return (
@@ -106,7 +121,11 @@ export const SingleRecipe = ({ data }: Props) => {
       <div className="recipe__image">
         <img src={image} alt="Dish image" />
         <div className="change-recipe-buttons">
-          <Link to={`/${id - 1}`} className={`${id === 1 ? "disabled" : ""}`} onClick={() => handleRecipe(id - 1)}>
+          <Link
+            to={`/${prevRecipeId}`}
+            className={`${currentRecipeId === currentRecipesIds[0] ? "disabled" : ""}`}
+            onClick={() => getPrevRecipeId(currentRecipesIds, currentRecipeId)}
+          >
             {/* <img src={arrowPrev} alt="Prev arrow icon" /> */}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 12" height="12" width="8">
               <g xmlns="http://www.w3.org/2000/svg" transform="matrix(-1 0 0 -1 8 12)">
@@ -119,9 +138,9 @@ export const SingleRecipe = ({ data }: Props) => {
             </svg>
           </Link>
           <Link
-            to={`/${id + 1}`}
-            className={`${id === totalRecipes ? "disabled" : ""}`}
-            onClick={() => handleRecipe(id + 1)}
+            to={`/${nextRecipeId}`}
+            className={`${id === currentRecipesIds.at(-1) ? "disabled" : ""}`}
+            onClick={() => getNextRecipeId(currentRecipesIds, currentRecipeId)}
           >
             {/* <img src={arrowNext} alt="Next arrow icon" /> */}
             <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">

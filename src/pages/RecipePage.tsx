@@ -6,11 +6,11 @@ import { PageHeader } from "../components/PageHeader";
 import { SingleRecipe } from "../components/SingleRecipe";
 
 export const RecipePage = () => {
-  const recipeId = useAppSelector((state) => state.recipesReducer.selectedRecipe);
+  const currentRecipeId = useAppSelector((state) => state.recipesReducer.currentRecipeId);
   const recipes = useAppSelector((state) => state.recipesReducer.recipes);
 
   const getRecipe = () => {
-    return recipes.find((recipe) => recipe.id === recipeId);
+    return recipes.find((recipe) => recipe.id === currentRecipeId);
   };
   const recipeData = getRecipe();
   console.log(recipeData);
