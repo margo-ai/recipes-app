@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { TDifficulty, TRecipe } from "../../types";
 
+import { URL } from "../../utils/constants";
+
 export type TTransformedRecipe = {
   id: number;
   name: string;
@@ -34,7 +36,8 @@ const transformRecipeData = (recipeData: TRecipe): TTransformedRecipe => {
     caloriesPerServing: recipeData.caloriesPerServing,
   };
 };
-type State = {
+
+type TState = {
   recipes: TTransformedRecipe[];
   recipesLoadingStatus: string;
   totalRecipes: number;
@@ -43,9 +46,10 @@ type State = {
   selectedDifficulty: string;
   currentRecipeId: number;
   currentRecipes: TTransformedRecipe[];
+  currentPage: number;
 };
 
-const initialState: State = {
+const initialState: TState = {
   recipes: [],
   recipesLoadingStatus: "idle",
   totalRecipes: 0,
@@ -54,9 +58,8 @@ const initialState: State = {
   selectedDifficulty: "Any",
   currentRecipeId: null,
   currentRecipes: [],
+  currentPage: 1,
 };
-
-const URL = "https://dummyjson.com/recipes?limit=50";
 
 export const fetchRecipes = createAsyncThunk("recipes/fetchRecipes", async () => {
   const response = await fetch(URL);
@@ -87,6 +90,9 @@ const recipesSlice = createSlice({
     setCurrentRecipes: (state, action: PayloadAction<TTransformedRecipe[]>) => {
       state.currentRecipes = action.payload;
     },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -115,6 +121,7 @@ export const {
   setTotal,
   setCurrentRecipeId,
   setCurrentRecipes,
+  setCurrentPage,
 } = actions;
 
 export default reducer;

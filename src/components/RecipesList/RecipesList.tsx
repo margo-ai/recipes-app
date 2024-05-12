@@ -9,7 +9,13 @@ import "./recipesList.scss";
 
 import { Loader } from "../Loader";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
-import { setTotal, setCurrentRecipes, TTransformedRecipe, fetchRecipes } from "../../features/recipes/recipesSlice";
+import {
+  setTotal,
+  setCurrentRecipes,
+  setCurrentPage,
+  TTransformedRecipe,
+  fetchRecipes,
+} from "../../features/recipes/recipesSlice";
 
 type TPaginationItems = "page" | "prev" | "next" | "jump-prev" | "jump-next";
 
@@ -34,51 +40,68 @@ const renderPaginationItems = (page: number, type: TPaginationItems) => {
       );
   }
 };
+
+const filterRecipes = (recipes: TTransformedRecipe[], cuisine: string, mealType: string, difficulty: string) => {
+  const filteredRecipes = recipes.filter((recipe) => {
+    return (
+      (cuisine === "All countries and regions" ? recipe : recipe.cuisine === cuisine) &&
+      (mealType === "All meal types" ? recipe : recipe.mealType.includes(mealType)) &&
+      (difficulty === "Any" ? recipe : recipe.difficulty === difficulty)
+    );
+  });
+
+  return filteredRecipes;
+};
+
+const getCurrentRecipes = ({
+  filteredRecipes,
+  currentPage,
+  recipesPerPage,
+}: {
+  filteredRecipes: TTransformedRecipe[];
+  currentPage: number;
+  recipesPerPage: number;
+}) => {
+  const lastRecipeIndex = currentPage * recipesPerPage;
+  const firstRecipeIndex = lastRecipeIndex - recipesPerPage;
+  return filteredRecipes.slice(firstRecipeIndex, lastRecipeIndex);
+};
+
 export const RecipesList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(6);
 
   const dispatch = useAppDispatch();
 
   const recipes = useAppSelector((state) => state.recipesReducer.recipes);
+  const currentPage = useAppSelector((state) => state.recipesReducer.currentPage);
   const selectedCuisine = useAppSelector((state) => state.recipesReducer.selectedCuisine);
   const selectedMealType = useAppSelector((state) => state.recipesReducer.selectedMealType);
   const selectedDifficulty = useAppSelector((state) => state.recipesReducer.selectedDifficulty);
   const recipesLoadingStatus = useAppSelector((state) => state.recipesReducer.recipesLoadingStatus);
-  const total = useAppSelector((state) => state.recipesReducer.totalRecipes);
+  const totalRecipes = useAppSelector((state) => state.recipesReducer.totalRecipes);
 
   useEffect(() => {
     dispatch(fetchRecipes());
   }, []);
 
-  const filterRecipes = (recipes: TTransformedRecipe[], cuisine: string, mealType: string, difficulty: string) => {
-    const filteredRecipes = recipes.filter((recipe) => {
-      return (
-        (cuisine === "All countries and regions" ? recipe : recipe.cuisine === cuisine) &&
-        (mealType === "All meal types" ? recipe : recipe.mealType.includes(mealType)) &&
-        (difficulty === "Any" ? recipe : recipe.difficulty === difficulty)
-      );
-    });
-
-    return filteredRecipes;
-  };
+  // список рецептов с учетом установленных фильтров
   const filteredRecipes = filterRecipes(recipes, selectedCuisine, selectedMealType, selectedDifficulty);
-  const getCurrentRecipes = ({ currentPage, recipesPerPage }: { currentPage: number; recipesPerPage: number }) => {
-    const lastRecipeIndex = currentPage * recipesPerPage;
-    const firstRecipeIndex = lastRecipeIndex - recipesPerPage;
-    return filteredRecipes.slice(firstRecipeIndex, lastRecipeIndex);
-  };
+  // отфильтрованный список рецептов на текущей странице
+  const currentRecipes = getCurrentRecipes({ filteredRecipes, currentPage, recipesPerPage });
 
-  const currentRecipes = getCurrentRecipes({ currentPage, recipesPerPage });
   useEffect(() => {
     dispatch(setTotal(filteredRecipes.length));
     dispatch(setCurrentRecipes(filteredRecipes));
   }, [filteredRecipes, currentRecipes]);
 
+  const handleCurrentPage = (page: number) => {
+    dispatch(setCurrentPage(page));
+  };
+
   return (
     <div className="recipes">
       <div className="recipes__count">
-        Найденные рецепты<span>{total}</span>
+        Найденные рецепты<span>{totalRecipes}</span>
       </div>
       {recipesLoadingStatus === "loading" ? (
         <div className="loader-wrapper">
@@ -98,9 +121,9 @@ export const RecipesList = () => {
       {!!currentRecipes.length && (
         <Pagination
           current={currentPage}
-          total={total}
+          total={totalRecipes}
           pageSize={6}
-          onChange={(page) => setCurrentPage(page)}
+          onChange={(page) => handleCurrentPage(page)}
           itemRender={(page, type) => renderPaginationItems(page, type)}
         />
       )}

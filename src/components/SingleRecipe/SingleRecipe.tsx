@@ -24,6 +24,7 @@ type Props = {
     | "id"
   >;
 };
+
 export const SingleRecipe = ({ data }: Props) => {
   const {
     cuisine,
@@ -39,7 +40,7 @@ export const SingleRecipe = ({ data }: Props) => {
   } = data;
 
   const dispatch = useAppDispatch();
-  // список рецептов с учетом проставленных фильтров
+  // список рецептов с учетом установленных фильтров
   const currentRecipes = useAppSelector((state) => state.recipesReducer.currentRecipes);
   // ids данного списка
   const currentRecipesIds = currentRecipes.map((recipe) => recipe.id);
@@ -98,9 +99,6 @@ export const SingleRecipe = ({ data }: Props) => {
           <div className="details__block">
             <div className="details__title">Инструкции по приготовлению</div>
             <ul className="details__info details__info_instructions">
-              {/* {instructions.map((item) => {
-                return <li key={uuidv4()}>{item}</li>;
-              })} */}
               <Steps
                 direction="vertical"
                 type="default"

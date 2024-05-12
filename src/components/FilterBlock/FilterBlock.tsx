@@ -12,7 +12,7 @@ export const FilterBlock = () => {
     <div className="filter">
       <div className="info">
         <div className="info__image">
-          <img src={image} alt="TRecipe image" />
+          <img src={image} alt="Recipe image" />
         </div>
         <div className="info__text">
           В нашей жизни, когда время становится все более ценным ресурсом, задача планирования приема пищи становится

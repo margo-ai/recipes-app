@@ -78,7 +78,7 @@ export const RecipeItem = ({ data }: Props) => {
     <li className="list__item item">
       <Link to={`/${id}`} onClick={() => handleRecipe(id)}>
         <div className="item__left">
-          <div className="item__title">{name}</div>
+          <div className={`item__title ${name.length > 23 ? "item__title-long" : ""}`}>{name}</div>
           <div className="item__image">
             <img src={image} alt="Dish image" />
           </div>

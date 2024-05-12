@@ -8,7 +8,12 @@ import "./filters.scss";
 import { cuisines, mealTypes } from "../../utils/constants";
 import { RadioBlock } from "../RadioBlock";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
-import { setSelectedCuisine, setSelectedMealType, setSelectedDifficulty } from "../../features/recipes/recipesSlice";
+import {
+  setSelectedCuisine,
+  setSelectedMealType,
+  setSelectedDifficulty,
+  setCurrentPage,
+} from "../../features/recipes/recipesSlice";
 
 export const Filters = () => {
   const dispatch = useAppDispatch();
@@ -18,14 +23,17 @@ export const Filters = () => {
   const selectedDifficulty = useAppSelector((state) => state.recipesReducer.selectedDifficulty);
 
   const handleChangeCuisine = (value: string) => {
+    dispatch(setCurrentPage(1));
     dispatch(setSelectedCuisine(value));
   };
 
   const handleChangeMealType = (value: string) => {
+    dispatch(setCurrentPage(1));
     dispatch(setSelectedMealType(value));
   };
 
   const handleChangeDifficulty = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setCurrentPage(1));
     dispatch(setSelectedDifficulty(e.target.value));
   };
 

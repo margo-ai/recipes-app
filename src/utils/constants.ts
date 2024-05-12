@@ -1,4 +1,6 @@
-export const cuisines: string[] = [
+export const URL = "https://dummyjson.com/recipes?limit=50";
+
+export const cuisines = [
   "All countries and regions",
   "Italian",
   "Asian",
@@ -23,7 +25,7 @@ export const cuisines: string[] = [
   "Hawaiian",
 ];
 
-export const mealTypes: string[] = [
+export const mealTypes = [
   "All meal types",
   "Dinner",
   "Lunch",
