@@ -2,7 +2,7 @@ import React from "react";
 
 import image from "../../../shared/assets/main-image.png";
 
-import { Filters } from "../../../features/filters";
+import { SetFilters } from "../../../features/setFilters";
 import { RandomButton } from "../../../entities/randomButton";
 
 import "./filterBlock.scss";
@@ -26,7 +26,7 @@ export const FilterBlock = () => {
           Наш сервис поможет: выбирайте параметры - и вперед!
         </div>
       </div>
-      <Filters />
+      <SetFilters />
 
       <RandomButton />
     </div>

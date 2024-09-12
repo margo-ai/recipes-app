@@ -11,11 +11,11 @@ import {
   setSelectedCuisine,
   setSelectedDifficulty,
   setSelectedMealType,
-} from "../../../features/filters/model/filtersSlice";
+} from "../model/filtersSlice";
 
-import "./filters.scss";
+import "./setFilters.scss";
 
-export const Filters = () => {
+export const SetFilters = () => {
   const dispatch = useAppDispatch();
 
   const selectedCuisine = useAppSelector((state) => state.filtersReducer.selectedCuisine);
