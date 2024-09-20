@@ -1,0 +1,31 @@
+.select {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 17.33px;
+
+  &__label {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+
+  &__block {
+    width: 285px;
+    height: 38px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    line-height: 22px;
+    margin-left: 12px;
+  }
+
+  .ant-select-selector {
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+  }
+
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    padding: 8px 16px;
+  }
+}

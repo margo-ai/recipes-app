@@ -1,10 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { recipesListReducer } from "../widgets/recipesList";
-import { recipeItemReducer } from "../entities/recipeItem";
-import { filtersReducer } from "../features/setFilters";
+import { recipesListReducer } from "../widgets/RecipesList";
+import { recipeCardReducer } from "../entities/Recipe/RecipeCard";
+import { cuisineReducer } from "../entities/CuisineSelect";
+import { currentPageReducer } from "../shared/model/reducers";
+import { mealReducer } from "../entities/MealSelect";
+import { recipeDifficultyReducer } from "../entities/RecipeDifficultyRadio";
 
 const store = configureStore({
-  reducer: { recipesListReducer, recipeItemReducer, filtersReducer },
+  reducer: {
+    recipesListReducer,
+    recipeCardReducer,
+    cuisineReducer,
+    mealReducer,
+    recipeDifficultyReducer,
+    currentPageReducer,
+  },
   devTools: process.env.NODE_ENV !== "production",
 });
 

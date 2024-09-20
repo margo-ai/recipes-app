@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Pagination } from "antd";
 
-import { RecipeItem } from "../../../entities/recipeItem";
+import { RecipeCard } from "../../../entities/Recipe/RecipeCard";
 
 import { Loader } from "../../../shared/ui/loader";
 import { useAppDispatch, useAppSelector } from "../../../shared/lib/hooks/hooks";
@@ -24,15 +24,16 @@ const filterRecipes = (recipes: TTransformedRecipe[], cuisine: string, mealType:
 };
 
 export const RecipesList = () => {
-  const [recipesPerPage, setRecipesPerPage] = useState(6);
+  // const [recipesPerPage, setRecipesPerPage] = useState(6);
+  const recipesPerPage = 6;
 
   const dispatch = useAppDispatch();
 
   const recipes = useAppSelector((state) => state.recipesListReducer.recipes);
   const currentPage = useAppSelector((state) => state.recipesListReducer.currentPage);
-  const selectedCuisine = useAppSelector((state) => state.filtersReducer.selectedCuisine);
-  const selectedMealType = useAppSelector((state) => state.filtersReducer.selectedMealType);
-  const selectedDifficulty = useAppSelector((state) => state.filtersReducer.selectedDifficulty);
+  const selectedCuisine = useAppSelector((state) => state.cuisineReducer.selectedCuisine);
+  const selectedMealType = useAppSelector((state) => state.mealReducer.selectedMealType);
+  const selectedDifficulty = useAppSelector((state) => state.recipeDifficultyReducer.selectedDifficulty);
   const recipesLoadingStatus = useAppSelector((state) => state.recipesListReducer.recipesLoadingStatus);
   const totalRecipes = useAppSelector((state) => state.recipesListReducer.totalRecipes);
 
@@ -68,7 +69,7 @@ export const RecipesList = () => {
       ) : !!filteredRecipes.length ? (
         <ul className="recipes__list list">
           {currentRecipes.map((recipe: TTransformedRecipe) => (
-            <RecipeItem key={recipe.id} data={recipe} />
+            <RecipeCard key={recipe.id} data={recipe} />
           ))}
         </ul>
       ) : (

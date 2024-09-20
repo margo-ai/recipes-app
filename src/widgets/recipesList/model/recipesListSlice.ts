@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { TDifficulty, TRecipe } from "../../../shared/types/types";
+import { TRecipe } from "../../../shared/types/types";
 
 import { URL } from "../../../shared/consts/api";
 import { TTransformedRecipe } from "../../../shared/types/types";

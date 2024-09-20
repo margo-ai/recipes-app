@@ -1,11 +1,11 @@
 import React from "react";
 
-import { PageHeader } from "../../../widgets/pageHeader";
-import { SingleRecipe } from "../../../widgets/singleRecipe";
+import { Header } from "../../../widgets/Header";
+import { SingleRecipe } from "../../../widgets/SingleRecipe";
 import { useAppSelector } from "../../../shared/lib/hooks/hooks";
 
 export const RecipePage = () => {
-  const currentRecipeId = useAppSelector((state) => state.recipeItemReducer.currentRecipeId);
+  const currentRecipeId = useAppSelector((state) => state.recipeCardReducer.currentRecipeId);
   const recipes = useAppSelector((state) => state.recipesListReducer.recipes);
 
   const getRecipe = () => {
@@ -15,7 +15,7 @@ export const RecipePage = () => {
 
   return (
     <>
-      <PageHeader recipeName={recipeData.name} />
+      <Header recipeName={recipeData.name} />
       <main className="main">
         <SingleRecipe data={recipeData} />
       </main>

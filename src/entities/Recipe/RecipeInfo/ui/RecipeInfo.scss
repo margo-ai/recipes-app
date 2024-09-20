@@ -1,0 +1,95 @@
+.recipe {
+  &__info {
+    flex-basis: 50%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  &__details,
+  &__cooking {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  & .details {
+    &__block {
+      border: 1px solid #f0f0f0;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+
+      &:last-child {
+        flex-grow: 1;
+      }
+    }
+    &__title {
+      background-color: #fff;
+      color: rgba(0, 0, 0, 0.85);
+      padding: 16px 24px;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 500;
+      border-bottom: 1px solid #f0f0f0;
+      border-radius: 2px 2px 0 0;
+    }
+
+    &__info {
+      background-color: #fff;
+      border-top: none;
+      padding: 24px;
+      border-radius: 0 0 2px 2px;
+      flex-grow: 1;
+
+      &_cuisine {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+      }
+
+      &_tags {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.45);
+      }
+
+      &_servings {
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 700;
+      }
+
+      &_descr {
+        font-size: 14px;
+        line-height: normal;
+        color: rgba(0, 0, 0, 0.45);
+      }
+
+      &_instructions {
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+
+    & .ant-steps.ant-steps-vertical > .ant-steps-item .ant-steps-item-title {
+      font-size: 14px;
+      line-height: 22px;
+      color: rgba(0, 0, 0, 0.85);
+    }
+
+    .kcal {
+      &__info {
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 8px;
+      }
+
+      &__weight {
+        font-size: 16px;
+        line-height: 22px;
+        color: rgba(0, 0, 0, 0.45);
+      }
+    }
+  }
+}
